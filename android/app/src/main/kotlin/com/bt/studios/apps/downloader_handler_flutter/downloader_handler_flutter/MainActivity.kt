@@ -11,7 +11,7 @@ class MainActivity: FlutterActivity() {
     }
 
     private fun handlePhoneHintMethodChannel(flutterEngine: FlutterEngine) {
-        val handler = DownloaderChannelHandler(this, this)
+        val handler = DownloaderChannelHandler(this)
 
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, downloaderChannel)
             .setMethodCallHandler(handler)
