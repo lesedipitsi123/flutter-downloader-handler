@@ -23,7 +23,7 @@ class DownloaderCubit extends Cubit<int> {
 
       emit(downloadId ?? -1);
     } on PlatformException catch (e) {
-      dev.log("Exception: ${e.message}");
+      dev.log("Exception: ${e.stacktrace}");
     }
   }
 }
