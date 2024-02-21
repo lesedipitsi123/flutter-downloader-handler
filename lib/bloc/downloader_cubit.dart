@@ -9,7 +9,7 @@ class DownloaderCubit extends Cubit<int> {
   static const _hintMethodChannelName =
       "com.bt.studios.apps.downloader_handler_flutter.downloader_handler_flutter/downloader";
 
-  void downloadFile(
+  Future<void> downloadFile(
       {required String url,
       required String filename,
       required String fileExtension}) async {

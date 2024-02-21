@@ -21,7 +21,18 @@ class HomeView extends StatelessWidget {
                   fontWeight: FontWeight.w500)),
         ),
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {},
+            onPressed: () async {
+              await context.read<DownloaderCubit>().downloadFile(
+                  url: textInputController.text,
+                  filename: "test",
+                  fileExtension: "pdf");
+
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(state != -1
+                    ? showDownloadSnackBar(context)
+                    : showErrorSnackBar(context));
+              }
+            },
             icon: Icon(Icons.download_for_offline_outlined,
                 size: 18.0,
                 color: Theme.of(context).colorScheme.inverseSurface),
@@ -58,5 +69,29 @@ class HomeView extends StatelessWidget {
         ),
       );
     });
+  }
+
+  SnackBar showDownloadSnackBar(BuildContext context) {
+    return SnackBar(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      content: Text(
+        "Download started...",
+        style: TextStyle(
+            color: Theme.of(context).colorScheme.onSecondary,
+            fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
+  SnackBar showErrorSnackBar(BuildContext context) {
+    return SnackBar(
+      backgroundColor: Theme.of(context).colorScheme.errorContainer,
+      content: Text(
+        "Error occurred",
+        style: TextStyle(
+            color: Theme.of(context).colorScheme.onErrorContainer,
+            fontWeight: FontWeight.w500),
+      ),
+    );
   }
 }
