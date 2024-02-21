@@ -4,16 +4,24 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DownloaderCubit extends Cubit<int> {
+  DownloaderCubit() : super(0);
 
-  DownloaderCubit(): super(0);
+  static const _hintMethodChannelName =
+      "com.bt.studios.apps.downloader_handler_flutter.downloader_handler_flutter/downloader";
 
-  static const _hintMethodChannelName = "com.bt.studios.apps/downloader";
-
-  void downloadFile({required String url}) async {
+  void downloadFile(
+      {required String url,
+      required String filename,
+      required String fileExtension}) async {
     try {
-      await const MethodChannel(_hintMethodChannelName)
-          .invokeMethod("downloadFile", url);
+      var downloadId = await const MethodChannel(_hintMethodChannelName)
+          .invokeMethod<int>("downloadFile", {
+        "url": url,
+        "filename": filename,
+        "fileExtension": fileExtension
+      });
 
+      emit(downloadId ?? -1);
     } on PlatformException catch (e) {
       dev.log("Exception: ${e.message}");
     }
