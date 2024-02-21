@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DownloaderHandlerFlutter</string>
+    <string name="text_format_date_pattern">yyyyddMMHHmmss</string>
+    <string name="text_format_file_name">%s_%s.%s</string>
+</resources>
